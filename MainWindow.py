@@ -5,12 +5,19 @@ from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem
 from ui.MainWindow_ui import Ui_MainWindow
 
 
+def tolower(s):
+    if isinstance(s, str):
+        return s.lower()
+    return
+
+
 class Main(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
         self.connection = sqlite3.connect('database/Library_db.sqlite')
+        self.connection.create_function('tolower', 1, tolower)
 
         self.data = []
 
@@ -42,7 +49,7 @@ class Main(QMainWindow, Ui_MainWindow):
        Genre ON Book.genre = Genre.GenreId
        LEFT JOIN
        Image ON Book.image = Image.ImageId
- WHERE Author.title LIKE '%{arg}%';
+ WHERE tolower(Author.title) LIKE '%{arg.lower()}%';
 """
         elif param == 'Название':
             request = f"""SELECT Book.BookId,
@@ -58,7 +65,7 @@ class Main(QMainWindow, Ui_MainWindow):
        Genre ON Book.genre = Genre.GenreId
        LEFT JOIN
        Image ON Book.image = Image.ImageId
- WHERE Book.title LIKE '%{arg}%';
+ WHERE tolower(Book.title) LIKE '%{arg.lower()}%';
 """
         else:
             request = """"""
@@ -79,10 +86,10 @@ class Main(QMainWindow, Ui_MainWindow):
     def update_book_info_table(self):
         self.book_info_table.clear()
         self.book_info_table.setRowCount(0)
-        self.book_info_table.setColumnCount(5)
-        self.book_info_table.setHorizontalHeaderLabels(('ИД', 'Название', 'Автор', 'Год создания', 'Жанр'))
+        self.book_info_table.setColumnCount(4)
+        self.book_info_table.setHorizontalHeaderLabels(('Название', 'Автор', 'Год создания', 'Жанр'))
 
-        for i, record in enumerate(self.data):
+        for i, record in enumerate(map(lambda x: x[1:], self.data)):
             self.book_info_table.setRowCount(self.book_info_table.rowCount() + 1)
             for j, element in enumerate(record):
                 self.book_info_table.setItem(i, j, QTableWidgetItem(str(element)))
