@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>582</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -106,10 +106,10 @@
    <widget class="QStackedWidget" name="stacked_widget">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>140</y>
-      <width>601</width>
-      <height>381</height>
+      <x>0</x>
+      <y>130</y>
+      <width>581</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -119,10 +119,10 @@
      <widget class="QListWidget" name="book_info_list">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>571</width>
-        <height>381</height>
+        <x>10</x>
+        <y>10</y>
+        <width>561</width>
+        <height>371</height>
        </rect>
       </property>
      </widget>
@@ -146,7 +146,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>582</width>
      <height>26</height>
     </rect>
    </property>
